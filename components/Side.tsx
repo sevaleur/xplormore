@@ -30,7 +30,7 @@ const Side = () => {
     <div className="w-full h-full px-3 relative">
       <div className="mb-12">
         <figure className="w-[80px] pt-4">
-          <Image src=" " alt="Logo" />
+          {/* <Image src=" " alt="Logo" /> */}
         </figure>
       </div>
       <div>
@@ -48,8 +48,10 @@ const Side = () => {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0 w-full left-0 px-4">
-        <SignOutButton>Sign Out</SignOutButton>
+      <div className="absolute bottom-0 w-full left-0 px-4 py-2">
+        <SignOutButton className="px-2 py-2 w-full border rounded-lg text-xl text-left">
+          Sign Out
+        </SignOutButton>
       </div>
     </div>
   );

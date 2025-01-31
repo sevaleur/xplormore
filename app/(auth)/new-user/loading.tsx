@@ -2,7 +2,7 @@ import { Spinner } from "@heroui/react";
 
 const Loading = () => {
   return (
-    <div className="h-full w-full place-content-center">
+    <div className="h-screen w-screen grid place-content-center">
       <Spinner />
     </div>
   );

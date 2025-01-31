@@ -11,6 +11,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
@@ -37,19 +38,19 @@ model Event {
   name        String @unique
   description String @db.Text
 
-  streetNumber Int    @db.Integer
-  street       String
-  zip          Int
-  bldg         String @db.Text
+  streetNumber Int?    
+  street       String?
+  zip          Int?
+  bldg         String? @db.Text
 
   isPrivate Boolean @default(false)
   status    Status  @default(draft)
 
-  user User @relation(fields: [createdBy], references: [id])
+  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 
   rsvps Rsvps[]
 
-  @@unique([createdBy, id])
+  @@index([createdBy])
 }
 
 model Attendees {
