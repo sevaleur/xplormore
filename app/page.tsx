@@ -11,7 +11,7 @@ export default async function Home() {
       <div className="w-full max-w-[600px] mx-auto">
         <h1 className="text-6xl mb-4">XplorMore</h1>
         <p className="text-2xl text-white/60 mb-4">
-          Get out of the group chat and into the real world!
+          Get your plans out of the group chat and into the real world!
         </p>
         <div>
           <Link href={href}>
