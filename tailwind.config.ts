@@ -1,11 +1,15 @@
 import type { Config } from "tailwindcss";
+import fluid, { extract } from "fluid-tailwind";
 
 export default {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: {
+    files: [
+      "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+      "./components/**/*.{js,ts,jsx,tsx,mdx}",
+      "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    extract,
+  },
   theme: {
     extend: {
       colors: {
@@ -14,5 +18,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [fluid],
 } satisfies Config;

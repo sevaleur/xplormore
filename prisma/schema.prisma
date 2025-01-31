@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email   String @unique
+  clerkId String @unique
+
+  events Event[]
+}
+
+model Event {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  createdBy String
+
+  updatedAt DateTime @updatedAt
+
+  startOn DateTime @db.Date
+
+  name        String @unique
+  description String @db.Text
+
+  streetNumber Int    @db.Integer
+  street       String
+  zip          Int
+  bldg         String @db.Text
+
+  isPrivate Boolean @default(false)
+  status    Status  @default(draft)
+
+  user User @relation(fields: [createdBy], references: [id])
+
+  rsvps Rsvps[]
+
+  @@unique([createdBy, id])
+}
+
+model Attendees {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String
+  rsvp      Rsvps[]
+}
+
+model Rsvps {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  attendeeId String
+  eventId    String
+  rsvp       Rsvp     @default(going)
+
+  attendee Attendees @relation(fields: [attendeeId], references: [id])
+
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@unique([attendeeId, id])
+  @@unique([eventId, id])
+}
+
+enum Status {
+  draft
+  live
+  started
+  ended
+  canceled
+}
+
+enum Rsvp {
+  going
+  not_going
+  maybe
+}
