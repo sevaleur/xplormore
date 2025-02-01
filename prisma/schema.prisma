@@ -36,7 +36,6 @@ model Trip {
   itinerary ItineraryItem[]
 
   travelStyle TravelStyle
-  travelType TravelType
   pace Pace 
   mustSee String?
   planeTicket Boolean @default(false)
@@ -78,7 +77,6 @@ model UserPreferences {
   userId String @unique
   user User @relation(fields: [userId], references: [id])
   travelStyle TravelStyle[]
-  travelType TravelType[]
   pace Pace[]
   mustSee String?
 }
@@ -113,10 +111,4 @@ enum TravelStyle {
   Foodie
   Cultural
   Mix
-}
-
-enum TravelType {
-  RoadTrip 
-  Flying
-  EverydayAdventure
 }

@@ -3,7 +3,6 @@
 import { revalidateTag } from "next/cache";
 import { prisma } from "@/utils/db";
 import { getUserByClerkID } from "@/utils/auth";
-import { delay } from "@/utils/delay";
 
 export const createNewTrip = async (formData) => {
   const user = await getUserByClerkID();
@@ -16,7 +15,7 @@ export const createNewTrip = async (formData) => {
       endDate: new Date(formData.get("endDate")).toISOString(),
       budget: Number(formData.get("budget")),
       travelStyle: formData.get("style"),
-      travelType: formData.get("type"),
+      transportation: formData.get("type"),
       pace: formData.get("pace"),
       planeTicket: formData.get("planeTickets") === "true" ? true : false,
       hotelReservation:
@@ -25,6 +24,6 @@ export const createNewTrip = async (formData) => {
     },
   });
 
-  /* revalidateTag("events");
-  revalidateTag("dashboard:events"); */
+  revalidateTag("trips");
+  revalidateTag("dashboard:trips");
 };

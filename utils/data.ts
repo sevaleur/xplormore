@@ -1,9 +1,3 @@
-export const travelTypes = [
-  { label: "Roadtrip", key: "roadtrip" },
-  { label: "Flying", key: "flying" },
-  { label: "Mini-Adventure", key: "mini-adventure" },
-];
-
 export const travelStyles = [
   { label: "Adventure", key: "adventure" },
   { label: "Relaxing", key: "relaxing" },
