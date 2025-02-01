@@ -11,81 +11,112 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  relationMode = "prisma"
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id        String @id @default(uuid())
   email   String @unique
   clerkId String @unique
 
-  events Event[]
-}
-
-model Event {
-  id String @id @default(uuid())
+  trips Trip[]
+  preferences UserPreferences?
 
   createdAt DateTime @default(now())
-  createdBy String
+  updatedAt DateTime @updatedAt
+}
 
+model Trip {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  destination String 
+  startDate DateTime 
+  endDate DateTime 
+  budget Int 
+  itinerary ItineraryItem[]
+
+  travelStyle TravelStyle
+  travelType TravelType
+  pace Pace 
+  mustSee String?
+  planeTicket Boolean @default(false)
+  hotelReservation Boolean @default(false)
+
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  startOn DateTime @db.Date
-
   name        String @unique
-  description String @db.Text
-
-  streetNumber Int?    
-  street       String?
-  zip          Int?
-  bldg         String? @db.Text
-
-  isPrivate Boolean @default(false)
-  status    Status  @default(draft)
-
-  user User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
-
-  rsvps Rsvps[]
-
-  @@index([createdBy])
+  description String? @db.Text
 }
 
-model Attendees {
-  id        String   @id @default(uuid())
+model ItineraryItem {
+  id String @id @default(uuid())
+  tripId String 
+  trip Trip @relation(fields: [tripId], references: [id])
+  name String 
+  type ItineraryType
+  locationId String?
+  location Location? @relation(fields: [locationId], references: [id])
+  startTime DateTime?
+  endTime DateTime?
+  price Int?
   createdAt DateTime @default(now())
-  email     String   @unique
-  name      String
-  rsvp      Rsvps[]
 }
 
-model Rsvps {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now())
-  attendeeId String
-  eventId    String
-  rsvp       Rsvp     @default(going)
-
-  attendee Attendees @relation(fields: [attendeeId], references: [id])
-
-  event Event @relation(fields: [eventId], references: [id])
-
-  @@unique([attendeeId, id])
-  @@unique([eventId, id])
+model Location {
+  id String @id @default(uuid())
+  name String 
+  address String? 
+  latitude Float 
+  longitude Float 
+  type LocationType
+  itineraryItems ItineraryItem[]
 }
 
-enum Status {
-  draft
-  live
-  started
-  ended
-  canceled
+model UserPreferences {
+  id String @id @default(uuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  travelStyle TravelStyle[]
+  travelType TravelType[]
+  pace Pace[]
+  mustSee String?
 }
 
-enum Rsvp {
-  going
-  not_going
-  maybe
+enum ItineraryType {
+  Flight 
+  Hotel 
+  Attraction 
+  Restaurant 
+  Event
+}
+
+enum LocationType {
+  Airport 
+  Hotel 
+  Attraction 
+  Venue 
+  Restaurant
+}
+
+enum Pace {
+  Slow 
+  Medium 
+  Fast
+}
+
+enum TravelStyle {
+  Adventure 
+  Relaxing 
+  Romantic 
+  Beach
+  Foodie
+  Cultural
+  Mix
+}
+
+enum TravelType {
+  RoadTrip 
+  Flying
+  EverydayAdventure
 }

@@ -1,7 +1,7 @@
 "use client";
 
 const DashboardPage = () => {
-  return <div className="text-white">Dashboard</div>;
+  return <div>Upcoming Trips</div>;
 };
 
 export default DashboardPage;
