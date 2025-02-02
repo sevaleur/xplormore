@@ -7,30 +7,39 @@ import {
   Checkbox,
   Autocomplete,
   AutocompleteItem,
+  RangeCalendar,
 } from "@heroui/react";
 import { useState, useTransition } from "react";
-import { createNewTrip } from "@/actions/trips";
+import { createNewTrip } from "@/actions/newTrip";
 import { travelStyles, pace } from "@/utils/data";
 import { redirect } from "next/navigation";
+import { today, getLocalTimeZone } from "@internationalized/date";
 
 const TripForm = () => {
-  const [hotelReservation, setHotelReservation] = useState(false);
-  const [planeTickets, setPlaneTickets] = useState(false);
+  const [hotelReservation, setHotelReservation] = useState<boolean>(false);
+  const [planeTickets, setPlaneTickets] = useState<boolean>(false);
+  const [selectedRange, setSelectedRange] = useState<Date[] | undefined>(
+    undefined
+  );
 
   const [isPending, startTransition] = useTransition();
 
   const handlePress = async (formData: FormData) => {
+    if (selectedRange) {
+      formData.append("start_date", new Date(selectedRange[0]).toISOString());
+      formData.append("end_date", new Date(selectedRange[1]).toISOString());
+    }
+
     startTransition(() => {
       createNewTrip(formData);
+      redirect("/dashboard/itinerary-creation");
     });
-
-    redirect("/dashboard/itinerary-creation");
   };
 
   return (
     <Form
       validationBehavior="native"
-      className="flex flex-col gap-4 w-100 justify-center"
+      className="flex flex-col w-fit justify-center mx-auto"
       action={handlePress}
     >
       <Input
@@ -42,34 +51,25 @@ const TripForm = () => {
         type="text"
         variant="bordered"
       />
-      <div className="flex gap-2">
-        <Input
-          isRequired
-          label="Start date"
-          labelPlacement="outside"
-          name="startDate"
-          placeholder="1/1/2026"
-          type="date"
-          variant="bordered"
-        />
-        <Input
-          isRequired
-          label="End date"
-          labelPlacement="outside"
-          name="endDate"
-          placeholder="1/10/2026"
-          type="date"
-          variant="bordered"
+      <div className="w-full h-full flex flex-col items-center text-black">
+        <RangeCalendar
+          aria-label="Dates"
+          minValue={today(getLocalTimeZone())}
+          showMonthAndYearPickers
+          visibleMonths={2}
+          color="primary"
+          defaultValue={selectedRange}
+          onChange={(e) => setSelectedRange([e.start, e.end])}
         />
       </div>
       <Input
         endContent={
-          <div className="flex items-center">
+          <div className="flex items-center ">
             <label className="sr-only" htmlFor="currency">
               Currency
             </label>
             <select
-              className="outline-none border-0 bg-transparent text-default-400 text-small"
+              className="outline-none border-0 bg-transparent text-black text-small"
               id="currency"
               name="currency"
             >
@@ -79,6 +79,7 @@ const TripForm = () => {
             </select>
           </div>
         }
+        isRequired
         label="Budget"
         labelPlacement="outside"
         placeholder="0.00"
@@ -86,14 +87,14 @@ const TripForm = () => {
         variant="bordered"
         startContent={
           <div className="pointer-events-none flex items-center">
-            <span className="text-default-400 text-small">$</span>
+            <span className="text-small text-black">$</span>
           </div>
         }
         type="number"
       />
       <Autocomplete
         isRequired
-        className="max-w-xs"
+        className=""
         defaultItems={travelStyles}
         label="Style"
         labelPlacement="outside"
@@ -107,7 +108,7 @@ const TripForm = () => {
       </Autocomplete>
       <Autocomplete
         isRequired
-        className="max-w-xs"
+        className=""
         defaultItems={pace}
         label="Pace"
         labelPlacement="outside"
@@ -133,7 +134,7 @@ const TripForm = () => {
         name="planeTickets"
         value={planeTickets}
       >
-        Need Plane Tickets?
+        <p className="text-black">Need plane tickets?</p>
       </Checkbox>
       <Checkbox
         isSelected={hotelReservation}
@@ -141,9 +142,9 @@ const TripForm = () => {
         name="hotelReservation"
         value={hotelReservation}
       >
-        Need a Hotel?
+        <p className="text-black">Need a hotel?</p>
       </Checkbox>
-      <Button type="submit" variant="bordered">
+      <Button type="submit" variant="bordered" className="text-black">
         Xplor
       </Button>
     </Form>

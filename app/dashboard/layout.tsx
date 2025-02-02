@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 
 const Dashboard = ({
   children,
+  trips,
   rsvps,
   events,
 }: {
   children: React.ReactNode;
+  trips: React.ReactNode;
   rsvps: React.ReactNode;
   events: React.ReactNode;
 }) => {
@@ -17,9 +19,10 @@ const Dashboard = ({
   return (
     <Shell>
       {path === "/dashboard" ? (
-        <div className="p-4 flex gap-4 w-full h-full">
-          <div className="w-1/2">{children}</div>
-          <div className="w-1/2 flex flex-col gap-4">
+        <div className="w-full h-full p-4 grid grid-rows-[100px_1fr] grid-cols-2 gap-4">
+          <div className="w-full col-span-full row-span-1">{children}</div>
+          <div className="w-full h-full">{trips}</div>
+          <div className="w-full col-start-2 col-end-3 flex flex-col gap-4">
             <div className="w-full h-1/2">{events}</div>
             <div className="w-full h-1/2">{rsvps}</div>
           </div>

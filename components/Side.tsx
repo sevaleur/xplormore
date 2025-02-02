@@ -10,11 +10,13 @@ import {
   TreePalm,
   Bed,
   Settings,
+  PiggyBank,
   CirclePlus,
   LogOut,
 } from "lucide-react";
 import { Button, Tooltip } from "@heroui/react";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { COLOR_BLACK } from "@/utils/colors";
 
 const createLinks = ({ size, color }: { size: number; color: string }) => {
   const links = [
@@ -59,7 +61,7 @@ const createLinks = ({ size, color }: { size: number; color: string }) => {
 };
 
 const Side = () => {
-  const links = createLinks({ size: 24, color: "#020001" });
+  const links = createLinks({ size: 24, color: COLOR_BLACK });
 
   return (
     <nav className="w-full h-full px-3 relative">

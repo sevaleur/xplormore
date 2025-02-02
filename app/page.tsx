@@ -13,15 +13,10 @@ export default async function Home() {
         <p className="text-2xl text-white/60 mb-4">
           Get your plans out of the group chat and into the real world!
         </p>
-        <div className="flex gap-4">
+        <div>
           <Link href={href}>
             <button className="bg-blue-600 px-4 py-2 rounded-lg text-xl">
-              Plan a vacation
-            </button>
-          </Link>
-          <Link href={href}>
-            <button className="bg-blue-600 px-4 py-2 rounded-lg text-xl">
-              Already there?
+              Sign up
             </button>
           </Link>
         </div>

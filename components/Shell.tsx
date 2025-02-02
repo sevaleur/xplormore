@@ -3,10 +3,10 @@ import Side from "./Side";
 const Shell = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex w-screen h-screen">
-      <aside className="w-[100px] min-w-[100px] max-w-[100px] h-full">
+      <aside className="fixed left-0 top-0 w-[100px] h-full">
         <Side />
       </aside>
-      <div className="w-[calc(100vw-100px)]">
+      <div className="pl-[100px] w-[calc(100vw-100px)]">
         <main className="h-full p-8">{children}</main>
       </div>
     </div>
