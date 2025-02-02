@@ -17,12 +17,10 @@ const Dashboard = ({
   return (
     <Shell>
       {path === "/dashboard" ? (
-        <div className="flex w-full h-full">
-          <div className="w-1/2 border-r border-default-50">{children}</div>
-          <div className="w-1/2 flex flex-col">
-            <div className="border-b border-default-50 w-full h-1/2">
-              {events}
-            </div>
+        <div className="p-4 flex gap-4 w-full h-full">
+          <div className="w-1/2">{children}</div>
+          <div className="w-1/2 flex flex-col gap-4">
+            <div className="w-full h-1/2">{events}</div>
             <div className="w-full h-1/2">{rsvps}</div>
           </div>
         </div>

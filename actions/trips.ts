@@ -15,7 +15,6 @@ export const createNewTrip = async (formData) => {
       endDate: new Date(formData.get("endDate")).toISOString(),
       budget: Number(formData.get("budget")),
       travelStyle: formData.get("style"),
-      transportation: formData.get("type"),
       pace: formData.get("pace"),
       planeTicket: formData.get("planeTickets") === "true" ? true : false,
       hotelReservation:

@@ -36,6 +36,7 @@ const TripForm = () => {
       <Input
         isRequired
         label="Destination"
+        labelPlacement="outside"
         name="destination"
         placeholder="Enter your destination"
         type="text"
@@ -45,6 +46,7 @@ const TripForm = () => {
         <Input
           isRequired
           label="Start date"
+          labelPlacement="outside"
           name="startDate"
           placeholder="1/1/2026"
           type="date"
@@ -53,6 +55,7 @@ const TripForm = () => {
         <Input
           isRequired
           label="End date"
+          labelPlacement="outside"
           name="endDate"
           placeholder="1/10/2026"
           type="date"
@@ -60,18 +63,40 @@ const TripForm = () => {
         />
       </div>
       <Input
-        isRequired
-        label="Budget (USD)"
-        name="budget"
+        endContent={
+          <div className="flex items-center">
+            <label className="sr-only" htmlFor="currency">
+              Currency
+            </label>
+            <select
+              className="outline-none border-0 bg-transparent text-default-400 text-small"
+              id="currency"
+              name="currency"
+            >
+              <option>USD</option>
+              <option>ARS</option>
+              <option>EUR</option>
+            </select>
+          </div>
+        }
+        label="Budget"
+        labelPlacement="outside"
         placeholder="0.00"
-        type="number"
+        name="budget"
         variant="bordered"
+        startContent={
+          <div className="pointer-events-none flex items-center">
+            <span className="text-default-400 text-small">$</span>
+          </div>
+        }
+        type="number"
       />
       <Autocomplete
         isRequired
         className="max-w-xs"
         defaultItems={travelStyles}
         label="Style"
+        labelPlacement="outside"
         name="style"
         placeholder="What type of holiday?"
         variant="bordered"
@@ -85,6 +110,7 @@ const TripForm = () => {
         className="max-w-xs"
         defaultItems={pace}
         label="Pace"
+        labelPlacement="outside"
         name="pace"
         placeholder="What pace suits you?"
         variant="bordered"
@@ -95,6 +121,7 @@ const TripForm = () => {
       </Autocomplete>
       <Input
         label="Must-see places?"
+        labelPlacement="outside"
         name="must-see"
         placeholder="eg. Eiffel Tower, Louvre etc."
         type="text"

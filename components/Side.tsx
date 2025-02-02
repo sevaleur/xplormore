@@ -3,68 +3,104 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { SignOutButton } from "@clerk/nextjs";
-import { usePathname } from "next/navigation";
-import { CirclePlus } from "lucide-react";
+import {
+  House,
+  Calendar1,
+  Ticket,
+  TreePalm,
+  Bed,
+  Settings,
+  CirclePlus,
+  LogOut,
+} from "lucide-react";
 import { Button, Tooltip } from "@heroui/react";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 
-const links = [
-  { route: "/dashboard", name: "Home" },
-  { route: "/dashboard/events", name: "Events" },
-  { route: "/dashboard/guests", name: "Guests" },
-  { route: "/dashboard/activity", name: "Activity" },
-  { route: "/dashboard/settings", name: "Settings" },
-];
+const createLinks = ({ size, color }: { size: number; color: string }) => {
+  const links = [
+    {
+      route: "/dashboard",
+      name: "Home",
+      icon: <House size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/trips",
+      name: "Trips",
+      icon: <TreePalm size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/itinerary",
+      name: "Itinerary",
+      icon: <Calendar1 size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/events",
+      name: "Events",
+      icon: <Ticket size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/hotels",
+      name: "Hotels",
+      icon: <Bed size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/settings",
+      name: "Settings",
+      icon: <Settings size={size} color={color} />,
+    },
+    {
+      route: "/dashboard/trip-creation",
+      name: "Trip creation",
+      icon: <CirclePlus size={size} color={color} />,
+    },
+  ];
 
-const isActive = (path: string, route: string) => {
-  if (route === "/dashboard") {
-    return path === "/dashboard";
-  } else {
-    return path.includes(route);
-  }
+  return links;
 };
 
 const Side = () => {
-  const path = usePathname();
-  const activeClass = "bg-primary hover:bg-primary";
+  const links = createLinks({ size: 24, color: "#020001" });
 
   return (
-    <div className="w-full h-full px-3 relative">
+    <nav className="w-full h-full px-3 relative">
       <div className="mb-12">
         <figure className="w-[80px] pt-4">
           {/* <Image src=" " alt="Logo" /> */}
         </figure>
       </div>
-      <div>
+      <div className="w-full flex flex-col gap-4 items-center">
         {links.map((link) => (
-          <div className="w-full" key={link.route}>
-            <Link href={link.route}>
-              <div
-                className={`w-full h-full py-2 px-2 hover:bg-gray-400/60 rounded-lg ${
-                  isActive(path, link.route) ? activeClass : ""
-                }`}
-              >
-                {link.name}
-              </div>
-            </Link>
+          <div className="w-fit" key={link.route}>
+            <Tooltip content={link.name} placement="right" color="foreground">
+              <Link href={link.route}>
+                <Button
+                  isIconOnly
+                  variant="light"
+                  size="lg"
+                  className="bg-white/40"
+                >
+                  {link.icon}
+                </Button>
+              </Link>
+            </Tooltip>
           </div>
         ))}
-        <div className="mt-5">
-          <Tooltip content="New Trip" placement="right" color="foreground">
-            <Link href="/dashboard/trip-creation">
-              <Button isIconOnly variant="light" size="lg">
-                <CirclePlus size={24} color="#fff" />
-              </Button>
-            </Link>
-          </Tooltip>
-        </div>
       </div>
-      <div className="absolute bottom-0 w-full left-0 px-4 py-2">
-        <SignOutButton className="px-2 py-2 w-full border rounded-lg text-xl text-left">
-          Sign Out
-        </SignOutButton>
+      <div className="absolute bottom-[2.5rem] left-0 w-full flex flex-col gap-4 items-center justify-center">
+        <UserButton
+          appearance={{
+            elements: { userButtonAvatarBox: "h-[3rem] w-[3rem]" },
+          }}
+        />
+        <Tooltip content="Sign out" placement="right" color="foreground">
+          <SignOutButton>
+            <Button isIconOnly variant="flat" className="bg-white/40" size="lg">
+              <LogOut size={20} color="#ff2d2d" />
+            </Button>
+          </SignOutButton>
+        </Tooltip>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -1,28 +1,16 @@
-import { getUserByClerkID } from "@/utils/auth";
-import { prisma } from "@/utils/db";
-
-const getAllTrips = async () => {
-  const user = await getUserByClerkID();
-  const trips = await prisma.trip.findMany({
-    where: {
-      userId: user.id,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    select: {
-      destination: true,
-      budget: true,
-    },
-  });
-
-  return trips;
-};
+import Trips from "@/components/Trips";
 
 const DashboardPage = async () => {
-  const trips = await getAllTrips();
-  console.log(trips);
-  return <div>Upcoming Trips</div>;
+  return (
+    <div className="h-full grid grid-rows-[200px_1fr]">
+      <div className="self-center px-4">
+        <h2 className="text-6xl">Dashboard</h2>
+      </div>
+      <div>
+        <Trips />
+      </div>
+    </div>
+  );
 };
 
 export default DashboardPage;
