@@ -31,7 +31,7 @@ const TripsSlot = async () => {
       {trips &&
         trips.map((trip) => (
           <div key={trip.id}>
-            <Link href={`/dashboard/trip/${trip.id}`}>
+            <Link href={`/dashboard/${trip.id}`}>
               <h2>{trip.destination}</h2>
               <p>{trip.budget}</p>
             </Link>

@@ -10,7 +10,7 @@ import {
   RangeCalendar,
 } from "@heroui/react";
 import { useState, useTransition } from "react";
-import { createNewTrip } from "@/app/_actions/trips";
+import { createTrip } from "@/app/_actions/trips";
 import { travelStyles, pace } from "@/app/_lib/data";
 import { today, getLocalTimeZone } from "@internationalized/date";
 
@@ -30,7 +30,7 @@ const TripForm = () => {
     }
 
     startTransition(() => {
-      createNewTrip(formData);
+      createTrip(formData);
     });
   };
 

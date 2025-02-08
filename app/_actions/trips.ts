@@ -5,7 +5,7 @@ import { prisma } from "@/app/_lib/db";
 import { getUserByClerkID } from "@/app/_lib/auth";
 import { redirect } from "next/navigation";
 
-export const createNewTrip = async (formData) => {
+export const createTrip = async (formData) => {
   const user = await getUserByClerkID();
 
   await prisma.trip.create({
@@ -26,6 +26,18 @@ export const createNewTrip = async (formData) => {
   revalidateTag("trips");
   revalidateTag("dashboard:trips");
   redirect("/dashboard/itinerary-creation");
+};
+
+export const getTrip = async ({ id: id }: { id: string }) => {
+  const user = await getUserByClerkID();
+  const trip = await prisma.trip.findUniqueOrThrow({
+    where: {
+      userId: user.id,
+      id: id,
+    },
+  });
+
+  return trip;
 };
 
 export const getLatestTrip = async () => {

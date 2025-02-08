@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { Ticket, Bed, House } from "lucide-react";
+import { Ticket, Bed, House, Palmtree, Plane } from "lucide-react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 import { LogOut } from "lucide-react";
 import { Button, Tooltip } from "@heroui/react";
@@ -11,15 +11,7 @@ import { usePathname } from "next/navigation";
 
 import Link from "next/link";
 
-const createLinks = ({
-  id,
-  size,
-  color,
-}: {
-  id: string;
-  size: number;
-  color: string;
-}) => {
+const createLinks = ({ size, color }: { size: number; color: string }) => {
   const links = [
     {
       route: "/dashboard",
@@ -27,12 +19,22 @@ const createLinks = ({
       icon: <House size={size} color={color} />,
     },
     {
-      route: `/dashboard/trip/${id}/activities`,
+      route: `/dashboard/trips`,
+      name: "Trips",
+      icon: <Palmtree size={size} color={color} />,
+    },
+    {
+      route: `/dashboard/planetickets`,
+      name: "Plane tickets",
+      icon: <Plane size={size} color={color} />,
+    },
+    {
+      route: `/dashboard/events`,
       name: "Events",
       icon: <Ticket size={size} color={color} />,
     },
     {
-      route: `/dashboard/trip/${id}/hotels`,
+      route: `/dashboard/hotels`,
       name: "Hotels",
       icon: <Bed size={size} color={color} />,
     },
@@ -41,13 +43,7 @@ const createLinks = ({
 };
 
 const SideNav = () => {
-  const path = usePathname();
-  const links = createLinks({
-    id: "60f33060-c7a9-4897-895d-6d3e405a3489",
-    size: 24,
-    color: COLOR_BLACK,
-  });
-
+  const links = createLinks({ size: 24, color: COLOR_BLACK });
   return (
     <nav className="w-full h-full px-3 relative">
       <div className="mb-12">
@@ -55,29 +51,23 @@ const SideNav = () => {
           {/* <Image src=" " alt="Logo" /> */}
         </figure>
       </div>
-      {path === "/dashboard/trip/60f33060-c7a9-4897-895d-6d3e405a3489" ? (
-        <div className="w-full flex flex-col gap-4 items-center">
-          {links.map((link) => (
-            <div key={link.route} className="w-fit">
-              <Tooltip content={link.name} placement="right" color="foreground">
-                <Link href={link.route}>
-                  <Button
-                    isIconOnly
-                    variant="light"
-                    size="lg"
-                    className="bg-white/40"
-                  >
-                    {link.icon}
-                  </Button>
-                </Link>
-              </Tooltip>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <></>
-      )}
-      <div className="absolute bottom-[2.5rem] left-0 w-full flex flex-col gap-4 items-center justify-center">
+      <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+        {links.map((link) => (
+          <div key={link.route} className="w-fit">
+            <Tooltip content={link.name} placement="right" color="foreground">
+              <Link href={link.route}>
+                <Button
+                  isIconOnly
+                  variant="light"
+                  size="lg"
+                  className="bg-white/40"
+                >
+                  {link.icon}
+                </Button>
+              </Link>
+            </Tooltip>
+          </div>
+        ))}
         <UserButton
           appearance={{
             elements: { userButtonAvatarBox: "h-[3rem] w-[3rem]" },
