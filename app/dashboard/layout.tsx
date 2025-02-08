@@ -1,17 +1,17 @@
 "use client";
 
-import Shell from "@/components/Shell";
+import Shell from "@/app/_ui/Shell";
 import { usePathname } from "next/navigation";
 
 const Dashboard = ({
   children,
   trips,
-  rsvps,
+  planeTickets,
   events,
 }: {
   children: React.ReactNode;
   trips: React.ReactNode;
-  rsvps: React.ReactNode;
+  planeTickets: React.ReactNode;
   events: React.ReactNode;
 }) => {
   const path = usePathname();
@@ -24,7 +24,7 @@ const Dashboard = ({
           <div className="w-full h-full">{trips}</div>
           <div className="w-full col-start-2 col-end-3 flex flex-col gap-4">
             <div className="w-full h-1/2">{events}</div>
-            <div className="w-full h-1/2">{rsvps}</div>
+            <div className="w-full h-1/2">{planeTickets}</div>
           </div>
         </div>
       ) : (

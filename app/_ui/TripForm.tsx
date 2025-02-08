@@ -10,9 +10,8 @@ import {
   RangeCalendar,
 } from "@heroui/react";
 import { useState, useTransition } from "react";
-import { createNewTrip } from "@/actions/newTrip";
-import { travelStyles, pace } from "@/utils/data";
-import { redirect } from "next/navigation";
+import { createNewTrip } from "@/app/_actions/trips";
+import { travelStyles, pace } from "@/app/_lib/data";
 import { today, getLocalTimeZone } from "@internationalized/date";
 
 const TripForm = () => {
@@ -32,14 +31,13 @@ const TripForm = () => {
 
     startTransition(() => {
       createNewTrip(formData);
-      redirect("/dashboard/itinerary-creation");
     });
   };
 
   return (
     <Form
       validationBehavior="native"
-      className="flex flex-col w-fit justify-center mx-auto"
+      className="flex flex-col w-fit justify-center mx-auto gap-4"
       action={handlePress}
     >
       <Input
@@ -92,34 +90,36 @@ const TripForm = () => {
         }
         type="number"
       />
-      <Autocomplete
-        isRequired
-        className=""
-        defaultItems={travelStyles}
-        label="Style"
-        labelPlacement="outside"
-        name="style"
-        placeholder="What type of holiday?"
-        variant="bordered"
-      >
-        {travelStyles.map((style) => (
-          <AutocompleteItem key={style.key}>{style.label}</AutocompleteItem>
-        ))}
-      </Autocomplete>
-      <Autocomplete
-        isRequired
-        className=""
-        defaultItems={pace}
-        label="Pace"
-        labelPlacement="outside"
-        name="pace"
-        placeholder="What pace suits you?"
-        variant="bordered"
-      >
-        {pace.map((p) => (
-          <AutocompleteItem key={p.key}>{p.label}</AutocompleteItem>
-        ))}
-      </Autocomplete>
+      <div className="flex gap-4">
+        <Autocomplete
+          isRequired
+          className=""
+          defaultItems={travelStyles}
+          label="Style"
+          labelPlacement="outside"
+          name="style"
+          placeholder="What type of holiday?"
+          variant="bordered"
+        >
+          {travelStyles.map((style) => (
+            <AutocompleteItem key={style.key}>{style.label}</AutocompleteItem>
+          ))}
+        </Autocomplete>
+        <Autocomplete
+          isRequired
+          className=""
+          defaultItems={pace}
+          label="Pace"
+          labelPlacement="outside"
+          name="pace"
+          placeholder="What pace suits you?"
+          variant="bordered"
+        >
+          {pace.map((p) => (
+            <AutocompleteItem key={p.key}>{p.label}</AutocompleteItem>
+          ))}
+        </Autocomplete>
+      </div>
       <Input
         label="Must-see places?"
         labelPlacement="outside"
@@ -128,22 +128,28 @@ const TripForm = () => {
         type="text"
         variant="bordered"
       />
-      <Checkbox
-        isSelected={planeTickets}
-        onValueChange={setPlaneTickets}
-        name="planeTickets"
-        value={planeTickets}
-      >
-        <p className="text-black">Need plane tickets?</p>
-      </Checkbox>
-      <Checkbox
-        isSelected={hotelReservation}
-        onValueChange={setHotelReservation}
-        name="hotelReservation"
-        value={hotelReservation}
-      >
-        <p className="text-black">Need a hotel?</p>
-      </Checkbox>
+      <div className="flex gap-4 w-full">
+        <div className="flex gap-2">
+          <Checkbox
+            isSelected={planeTickets}
+            onValueChange={setPlaneTickets}
+            name="planeTickets"
+            value={planeTickets}
+          >
+            <p className="text-black">Need plane tickets?</p>
+          </Checkbox>
+        </div>
+        <div className="flex gap-2">
+          <Checkbox
+            isSelected={hotelReservation}
+            onValueChange={setHotelReservation}
+            name="hotelReservation"
+            value={hotelReservation}
+          >
+            <p className="text-black">Need a hotel?</p>
+          </Checkbox>
+        </div>
+      </div>
       <Button type="submit" variant="bordered" className="text-black">
         Xplor
       </Button>
