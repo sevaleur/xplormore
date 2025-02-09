@@ -45,7 +45,7 @@ export const generateItineraryIdeas = async (id) => {
 
   const chain = RunnableSequence.from([
     ChatPromptTemplate.fromTemplate(
-      `You are an Itinerary creator. You must create 7 itinerary items that combined does not exceed the specified budget, but fits the travel-style and pace from the following categories - events, restaurants, attractions, activities, hidden gems. Use the specified start date and end date to find events and activities within that time-span and they must be time-of-the-year appropriate (Example - You dont go swimming in the winter, but you do in the summer). If mustSee is not equal to null, then you must create an item for every value in the mustSee field, if it is equal to null, then ignore the mustSee field. Follow these strict format instructions exactly: {format_instructions} User input: {entry}`
+      `You are an Itinerary creator. You must find 7 local hidden gems for itinerary items that combined does not exceed the specified budget, but fits the travel-style and pace. Use the specified start date and end date to find hidden gems within that time-span and they must be time-of-the-year appropriate hidden gems. All items you create MUST be hidden gems and not very touristy. Follow these strict format instructions exactly: {format_instructions} User input: {entry}`
     ),
     llm,
     itineraryParser,

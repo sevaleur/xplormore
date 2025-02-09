@@ -28,7 +28,7 @@ export const createTrip = async (formData) => {
   redirect(`/dashboard/${trip.id}`);
 };
 
-export const getTrip = async ({ id: id }: { id: string }) => {
+export const getTrip = async (id: string) => {
   const user = await getUserByClerkID();
   const trip = await prisma.trip.findUniqueOrThrow({
     where: {

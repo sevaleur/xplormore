@@ -9,12 +9,10 @@ const Layout = ({
 }) => {
   return (
     <div className="w-full h-full relative p-4">
-      <div className="absolute top-[4rem]">
-        <div className="mb-4">{children}</div>
-        <div className="flex gap-4">
-          <TopNav id={params.id} />
-        </div>
+      <div className="h-[100px] absolute top-2 right-0 flex gap-4 items-center">
+        <TopNav id={params.id} />
       </div>
+      <div className="w-full h-full">{children}</div>
     </div>
   );
 };

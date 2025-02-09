@@ -3,8 +3,10 @@
 import { generateItineraryIdeas } from "@/app/_lib/ai";
 import GridItem from "@/app/_ui/GridItem";
 
-const ItineraryCreation = async () => {
-  const generatedItinerary = await generateItineraryIdeas();
+export const Page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
+  const id = params.id;
+  const generatedItinerary = await generateItineraryIdeas(id);
 
   return (
     <div className="h-full w-full p-[4.5rem] grid grid-cols-3 grid-rows-4 gap-4">
@@ -15,4 +17,4 @@ const ItineraryCreation = async () => {
   );
 };
 
-export default ItineraryCreation;
+export default Page;

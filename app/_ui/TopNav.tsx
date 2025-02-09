@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Ticket, Bed, Palmtree, Plane, House } from "lucide-react";
+import { Ticket, Bed, Palmtree, Plane, House, Gem } from "lucide-react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 import { Button, Tooltip } from "@heroui/react";
 
@@ -39,30 +39,37 @@ const createLinks = ({
       name: "Hotels",
       icon: <Bed size={size} color={color} />,
     },
+    {
+      route: `/dashboard/${id}/gems`,
+      name: "Hidden Gems",
+      icon: <Gem size={size} color={color} />,
+    },
   ];
   return links;
 };
 
 const TopNav = ({ id }: { id: string }) => {
   const links = createLinks({ id: id, size: 24, color: COLOR_BLACK });
+
   return (
     <div className="flex gap-4 pl-4">
-      {links.map((link) => (
-        <div key={link.route} className="w-fit">
-          <Tooltip content={link.name} placement="bottom" color="foreground">
-            <Link href={link.route}>
-              <Button
-                isIconOnly
-                variant="light"
-                size="lg"
-                className="bg-white/40"
-              >
-                {link.icon}
-              </Button>
-            </Link>
-          </Tooltip>
-        </div>
-      ))}
+      {links &&
+        links.map((link) => (
+          <div key={link.route} className="w-fit">
+            <Tooltip content={link.name} placement="bottom" color="foreground">
+              <Link href={link.route}>
+                <Button
+                  isIconOnly
+                  variant="light"
+                  size="lg"
+                  className="bg-white/40"
+                >
+                  {link.icon}
+                </Button>
+              </Link>
+            </Tooltip>
+          </div>
+        ))}
     </div>
   );
 };
