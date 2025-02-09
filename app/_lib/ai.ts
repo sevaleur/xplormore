@@ -5,7 +5,7 @@ import { StructuredOutputParser } from "langchain/output_parsers";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
 import { z } from "zod";
-import { getLatestTrip } from "@/app/_actions/trips";
+import { getTrip } from "@/app/_actions/trips";
 
 const itineraryParser = StructuredOutputParser.fromZodSchema(
   z.array(
@@ -34,8 +34,8 @@ const itineraryParser = StructuredOutputParser.fromZodSchema(
   )
 );
 
-export const generateItineraryIdeas = async () => {
-  const content = await getLatestTrip();
+export const generateItineraryIdeas = async (id) => {
+  const content = await getTrip(id);
 
   const llm = new ChatOpenAI({
     temperature: 0,

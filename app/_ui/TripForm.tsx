@@ -4,31 +4,19 @@ import {
   Form,
   Input,
   Button,
-  Checkbox,
   Autocomplete,
   AutocompleteItem,
-  RangeCalendar,
+  DatePicker,
 } from "@heroui/react";
-import { useState, useTransition } from "react";
-import { createTrip } from "@/app/_actions/trips";
 import { travelStyles, pace } from "@/app/_lib/data";
 import { today, getLocalTimeZone } from "@internationalized/date";
+import { createTrip } from "@/app/_actions/trips";
+import { useTransition } from "react";
 
 const TripForm = () => {
-  const [hotelReservation, setHotelReservation] = useState<boolean>(false);
-  const [planeTickets, setPlaneTickets] = useState<boolean>(false);
-  const [selectedRange, setSelectedRange] = useState<Date[] | undefined>(
-    undefined
-  );
-
   const [isPending, startTransition] = useTransition();
 
   const handlePress = async (formData: FormData) => {
-    if (selectedRange) {
-      formData.append("start_date", new Date(selectedRange[0]).toISOString());
-      formData.append("end_date", new Date(selectedRange[1]).toISOString());
-    }
-
     startTransition(() => {
       createTrip(formData);
     });
@@ -48,16 +36,25 @@ const TripForm = () => {
         placeholder="Enter your destination"
         type="text"
         variant="bordered"
+        disabled={isPending}
       />
-      <div className="w-full h-full flex flex-col items-center text-black">
-        <RangeCalendar
-          aria-label="Dates"
+      <div className="w-full h-full flex gap-4 text-black">
+        <DatePicker
+          defaultValue={today(getLocalTimeZone()).subtract({ days: 1 })}
+          label="Start Date"
+          labelPlacement="outside"
+          name="startDate"
           minValue={today(getLocalTimeZone())}
-          showMonthAndYearPickers
-          visibleMonths={2}
-          color="primary"
-          defaultValue={selectedRange}
-          onChange={(e) => setSelectedRange([e.start, e.end])}
+          isDisabled={isPending}
+          isRequired
+        />
+        <DatePicker
+          defaultValue={today(getLocalTimeZone()).add({ days: 7 })}
+          label="End Date"
+          labelPlacement="outside"
+          name="endDate"
+          isDisabled={isPending}
+          isRequired
         />
       </div>
       <Input
@@ -72,7 +69,6 @@ const TripForm = () => {
               name="currency"
             >
               <option>USD</option>
-              <option>ARS</option>
               <option>EUR</option>
             </select>
           </div>
@@ -83,6 +79,7 @@ const TripForm = () => {
         placeholder="0.00"
         name="budget"
         variant="bordered"
+        disabled={isPending}
         startContent={
           <div className="pointer-events-none flex items-center">
             <span className="text-small text-black">$</span>
@@ -100,6 +97,7 @@ const TripForm = () => {
           name="style"
           placeholder="What type of holiday?"
           variant="bordered"
+          disabled={isPending}
         >
           {travelStyles.map((style) => (
             <AutocompleteItem key={style.key}>{style.label}</AutocompleteItem>
@@ -114,6 +112,7 @@ const TripForm = () => {
           name="pace"
           placeholder="What pace suits you?"
           variant="bordered"
+          disabled={isPending}
         >
           {pace.map((p) => (
             <AutocompleteItem key={p.key}>{p.label}</AutocompleteItem>
@@ -127,29 +126,8 @@ const TripForm = () => {
         placeholder="eg. Eiffel Tower, Louvre etc."
         type="text"
         variant="bordered"
+        disabled={isPending}
       />
-      <div className="flex gap-4 w-full">
-        <div className="flex gap-2">
-          <Checkbox
-            isSelected={planeTickets}
-            onValueChange={setPlaneTickets}
-            name="planeTickets"
-            value={planeTickets}
-          >
-            <p className="text-black">Need plane tickets?</p>
-          </Checkbox>
-        </div>
-        <div className="flex gap-2">
-          <Checkbox
-            isSelected={hotelReservation}
-            onValueChange={setHotelReservation}
-            name="hotelReservation"
-            value={hotelReservation}
-          >
-            <p className="text-black">Need a hotel?</p>
-          </Checkbox>
-        </div>
-      </div>
       <Button type="submit" variant="bordered" className="text-black">
         Xplor
       </Button>

@@ -1,3 +1,5 @@
+"use server";
+
 import TripForm from "@/app/_ui/TripForm";
 
 const TripCreatorSlot = () => {

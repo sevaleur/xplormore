@@ -13,7 +13,7 @@ const TripsSlot = async () => {
     <div className="w-full h-full bg-white/40 rounded-lg backdrop-blur-lg px-8 py-4 relative">
       <div className="w-fit absolute top-4 right-4">
         <Tooltip content="Create a trip" placement="right" color="foreground">
-          <Link href="/dashboard/trip-creation">
+          <Link href="/dashboard/create">
             <Button
               isIconOnly
               variant="light"
