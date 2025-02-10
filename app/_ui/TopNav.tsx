@@ -9,6 +9,7 @@ import {
   Heart,
   Sun,
   MessageCircleHeart,
+  UserRoundPlus,
 } from "lucide-react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 import { Button, Tooltip } from "@heroui/react";
@@ -62,6 +63,11 @@ const createLinks = ({
       route: `/dashboard/${id}/likes`,
       name: "My likes",
       icon: <Heart size={size} color={color} />,
+    },
+    {
+      route: `/dashboard/${id}/invite`,
+      name: "Invite adventurer",
+      icon: <UserRoundPlus size={size} color={color} />,
     },
   ];
   return links;

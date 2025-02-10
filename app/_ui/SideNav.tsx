@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 
-import { LogOut } from "lucide-react";
+import { LogOut, MapPinPlus } from "lucide-react";
 import { Button, Tooltip } from "@heroui/react";
 import { SignOutButton, UserButton } from "@clerk/nextjs";
 
 import Link from "next/link";
+import { COLOR_BLACK, COLOR_RED } from "../_lib/colors";
 
 const SideNav = () => {
   return (
@@ -18,16 +19,25 @@ const SideNav = () => {
           </figure>
         </Link> */}
       </div>
-      <div className="w-full absolute bottom-[4.5rem] left-0 flex flex-col gap-4 items-center">
+      <div className="w-full absolute bottom-[6rem] left-0 flex flex-col gap-4 items-center">
         <UserButton
           appearance={{
             elements: { userButtonAvatarBox: "h-[3rem] w-[3rem]" },
           }}
         />
+        <Tooltip
+          content="Add a local point of interest"
+          placement="right"
+          color="foreground"
+        >
+          <Button isIconOnly variant="flat" className="bg-white/40" size="lg">
+            <MapPinPlus size={20} color={COLOR_BLACK} />
+          </Button>
+        </Tooltip>
         <Tooltip content="Sign out" placement="right" color="foreground">
           <SignOutButton>
             <Button isIconOnly variant="flat" className="bg-white/40" size="lg">
-              <LogOut size={20} color="#ff2d2d" />
+              <LogOut size={20} color={COLOR_RED} />
             </Button>
           </SignOutButton>
         </Tooltip>
