@@ -4,13 +4,15 @@ import { getAllTrips } from "@/app/_actions/trips";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 import { CirclePlus } from "lucide-react";
 import { Tooltip, Button } from "@heroui/react";
+
+import SectionCard from "@/app/_ui/SectionCard";
 import Link from "next/link";
 
 const TripsSlot = async () => {
   const trips = await getAllTrips();
 
   return (
-    <div className="w-full h-full bg-white/40 rounded-lg backdrop-blur-lg px-8 py-4 relative">
+    <SectionCard>
       <div className="w-fit absolute top-4 right-4">
         <Tooltip content="Create a trip" placement="right" color="foreground">
           <Link href="/dashboard/create">
@@ -37,7 +39,7 @@ const TripsSlot = async () => {
             </Link>
           </div>
         ))}
-    </div>
+    </SectionCard>
   );
 };
 

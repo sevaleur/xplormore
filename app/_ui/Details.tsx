@@ -19,6 +19,22 @@ const Details = ({
         <p>Budget: </p>
         <p>{budget}$</p>
       </div>
+      <div className="flex gap-4">
+        <p>Budget: </p>
+        <p>{style}$</p>
+      </div>
+      <div className="flex gap-4">
+        <p>Budget: </p>
+        <p>{pace}$</p>
+      </div>
+      <div className="flex gap-4">
+        <p>Budget: </p>
+        <p>{startDate.getDate()}$</p>
+      </div>
+      <div className="flex gap-4">
+        <p>Budget: </p>
+        <p>{endDate.getDate()}$</p>
+      </div>
     </div>
   );
 };

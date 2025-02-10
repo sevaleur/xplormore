@@ -1,14 +1,15 @@
 "use server";
 
+import SectionCard from "@/app/_ui/SectionCard";
 import TripForm from "@/app/_ui/TripForm";
 
 const TripCreatorSlot = () => {
   return (
-    <div className="w-full h-full flex flex-col justify-center bg-white/40 rounded-lg backdrop-blur-lg px-8">
+    <SectionCard>
       <div className="p-4">
         <TripForm />
       </div>
-    </div>
+    </SectionCard>
   );
 };
 

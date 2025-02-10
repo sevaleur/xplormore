@@ -37,7 +37,6 @@ model Trip {
 
   travelStyle TravelStyle
   pace Pace 
-  mustSee String?
   planeTicket Boolean @default(false)
   hotelReservation Boolean @default(false)
 

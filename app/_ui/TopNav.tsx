@@ -1,6 +1,15 @@
 import Link from "next/link";
 
-import { Ticket, Bed, Palmtree, Plane, House, Gem } from "lucide-react";
+import {
+  Ticket,
+  Bed,
+  Plane,
+  House,
+  Gem,
+  Heart,
+  Sun,
+  MessageCircleHeart,
+} from "lucide-react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 import { Button, Tooltip } from "@heroui/react";
 
@@ -20,9 +29,14 @@ const createLinks = ({
       icon: <House size={size} color={color} />,
     },
     {
-      route: `/dashboard/trips`,
-      name: "Trips",
-      icon: <Palmtree size={size} color={color} />,
+      route: `/dashboard/${id}/locals`,
+      name: "What the locals say",
+      icon: <MessageCircleHeart size={size} color={color} />,
+    },
+    {
+      route: `/dashboard/${id}/weather`,
+      name: "Weather forecast",
+      icon: <Sun size={size} color={color} />,
     },
     {
       route: `/dashboard/${id}/planetickets`,
@@ -43,6 +57,11 @@ const createLinks = ({
       route: `/dashboard/${id}/gems`,
       name: "Hidden Gems",
       icon: <Gem size={size} color={color} />,
+    },
+    {
+      route: `/dashboard/${id}/likes`,
+      name: "My likes",
+      icon: <Heart size={size} color={color} />,
     },
   ];
   return links;
