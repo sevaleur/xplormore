@@ -29,7 +29,13 @@ model Trip {
   id String @id @default(uuid())
   userId String
   user User @relation(fields: [userId], references: [id])
-  destination String 
+  city String
+  country String 
+  region String? 
+  lat Float 
+  lon Float 
+  tz_id String
+  localTime String 
   startDate DateTime 
   endDate DateTime 
   budget Int 

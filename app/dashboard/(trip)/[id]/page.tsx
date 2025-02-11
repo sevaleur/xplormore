@@ -1,6 +1,7 @@
 "use server";
 
 import { getTrip } from "@/app/_actions/trips";
+import { getCurrent } from "@/app/_actions/weather";
 import { Pencil } from "lucide-react";
 import { Tooltip, Button } from "@heroui/react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
