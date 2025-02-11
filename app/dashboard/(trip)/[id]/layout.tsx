@@ -15,7 +15,7 @@ const Layout = async ({
       <div className="flex gap-4 items-center">
         <TopNav id={id} />
       </div>
-      <div className="w-full h-full p-4 grid grid-rows-[1fr_1fr] grid-cols-2 gap-4">
+      <div className="w-full h-full p-4">
         <SectionCard>{children}</SectionCard>
       </div>
     </div>

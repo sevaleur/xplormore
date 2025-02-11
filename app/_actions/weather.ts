@@ -11,7 +11,7 @@ export const getCurrent = async (query: string) => {
 
 export const getForecast = async (query: string) => {
   const res = await fetch(
-    `${process.env.WEATHER_BASEURL}/forecast.json?key=${process.env.WEATHER_KEY}&q=${query}&aqi=no`
+    `${process.env.WEATHER_BASEURL}/forecast.json?key=${process.env.WEATHER_KEY}&q=${query}&days=7&aqi=no`
   );
 
   const data = await res.json();
