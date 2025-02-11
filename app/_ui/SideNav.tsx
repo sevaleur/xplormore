@@ -30,9 +30,11 @@ const SideNav = () => {
           placement="right"
           color="foreground"
         >
-          <Button isIconOnly variant="flat" className="bg-white/40" size="lg">
-            <MapPinPlus size={20} color={COLOR_BLACK} />
-          </Button>
+          <Link href="/dashboard/locals">
+            <Button isIconOnly variant="flat" className="bg-white/40" size="lg">
+              <MapPinPlus size={20} color={COLOR_BLACK} />
+            </Button>
+          </Link>
         </Tooltip>
         <Tooltip content="Sign out" placement="right" color="foreground">
           <SignOutButton>

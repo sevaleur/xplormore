@@ -9,8 +9,7 @@ import Details from "@/app/_ui/Details";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
-  const id = params.id;
+  const id = (await props.params).id;
   const trip = await getTrip(id);
 
   return (
@@ -29,8 +28,8 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
           </Link>
         </Tooltip>
       </div>
-      <div className="text-6xl">{trip.destination}</div>
       <Details
+        destination={trip.destination}
         budget={trip.budget}
         style={trip.travelStyle}
         pace={trip.pace}
