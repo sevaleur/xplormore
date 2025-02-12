@@ -32,30 +32,28 @@ model Trip {
   city String
   country String 
   region String? 
-  lat Float 
-  lon Float 
+  latitude Float 
+  longitude Float 
   tz_id String
   localTime String 
   startDate DateTime 
   endDate DateTime 
   budget Int 
-  itinerary ItineraryItem[]
+  likes like[]
 
   travelStyle TravelStyle
   pace Pace 
-  planeTicket Boolean @default(false)
-  hotelReservation Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model ItineraryItem {
+model like {
   id String @id @default(uuid())
   tripId String 
   trip Trip @relation(fields: [tripId], references: [id])
   name String 
-  type ItineraryType
+  type LocationType
   locationId String?
   location Location? @relation(fields: [locationId], references: [id])
   startTime DateTime?
@@ -71,7 +69,7 @@ model Location {
   latitude Float 
   longitude Float 
   type LocationType
-  itineraryItems ItineraryItem[]
+  likes like[]
 }
 
 model UserPreferences {
@@ -80,20 +78,11 @@ model UserPreferences {
   user User @relation(fields: [userId], references: [id])
   travelStyle TravelStyle[]
   pace Pace[]
-  mustSee String?
-}
-
-enum ItineraryType {
-  Flight 
-  Hotel 
-  Attraction 
-  Restaurant 
-  Event
 }
 
 enum LocationType {
   Airport 
-  Hotel 
+  Accomodation 
   Attraction 
   Venue 
   Restaurant
