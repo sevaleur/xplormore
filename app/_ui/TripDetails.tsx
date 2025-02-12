@@ -1,14 +1,16 @@
 import { Pace, TravelStyle } from "@prisma/client";
 
-const Details = ({
-  destination,
+const TripDetails = ({
+  city,
+  country,
   budget,
   style,
   pace,
   startDate,
   endDate,
 }: {
-  destination: string;
+  city: string;
+  country: string;
   budget: number;
   style: TravelStyle;
   pace: Pace;
@@ -18,7 +20,9 @@ const Details = ({
   return (
     <div className="relative">
       <div className="text-6xl my-4">
-        <h1>{destination}</h1>
+        <h1 className="capitalize">
+          {city}, {country}
+        </h1>
       </div>
       <div className="pl-4">
         <div className="flex gap-4">
@@ -41,4 +45,4 @@ const Details = ({
   );
 };
 
-export default Details;
+export default TripDetails;

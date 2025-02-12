@@ -1,14 +1,14 @@
 "use server";
 
 import { getTrip } from "@/app/_actions/trips";
-import { getCurrent } from "@/app/_actions/weather";
+/* import { getCurrent } from "@/app/_actions/weather"; */
 
 import { Pencil } from "lucide-react";
 import { Tooltip, Button } from "@heroui/react";
 import { COLOR_BLACK } from "@/app/_lib/colors";
 
 import Link from "next/link";
-import Details from "@/app/_ui/Details";
+import TripDetails from "@/app/_ui/TripDetails";
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {
   const id = (await props.params).id;
@@ -33,7 +33,8 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
         </Tooltip>
       </div>
       <Details
-        destination={trip.destination}
+        city={trip.city}
+        country={trip.country}
         budget={trip.budget}
         style={trip.travelStyle}
         pace={trip.pace}
